@@ -14,7 +14,7 @@ Setup
 
 To use this script, you will need to change the variables in the file named `creds.py` in the same directory as the script. The file contains the following variables:
 
-`identifiant = '<your UQAM student ID>'`
+`identifiant = '<your UQAM student ID>'` \n
 `motDePasse = '<your UQAM password>'`
 `email_recever = '<the email address that will receive the notification>'`
 

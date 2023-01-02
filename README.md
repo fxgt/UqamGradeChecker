@@ -56,10 +56,10 @@ Copy code
 
 `crontab -e`
 
-1.  Add the following line to the crontab file to run the script every day at 12:00am:
+1.  Add the following line to the crontab file to run the script every minutes:
 
 Copy code
 
 `* * * * * /path/to/UqamGradeChecker/main.py`
 
-1.  Save the crontab file and exit. The script will now be automated and run every minutes.
+2.  Save the crontab file and exit. The script will now be automated and run every minutes.

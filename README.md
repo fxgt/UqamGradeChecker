@@ -28,11 +28,11 @@ To run the script, use the following command:
 
 Copy code
 
-`git clone https://github.com/fxgt/UqamGradeChecker.git`
+`git clone https://github.com/fxgt/UqamGradeChecker.git```
 
 Copy code
 
-`cd UqamGradeChecker`
+`cd UqamGradeChecker```
 
 Copy code
 

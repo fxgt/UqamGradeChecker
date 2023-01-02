@@ -12,13 +12,14 @@ Requirements
 Setup
 -----
 
-To use this script, you will need to create a file named `creds.py` in the same directory as the script. This file should contain the following variables:
-
-Copy code
+To use this script, you will need to change the variables in the file named `creds.py` in the same directory as the script. The file contains the following variables:
 
 `identifiant = '<your UQAM student ID>'
 motDePasse = '<your UQAM password>'
 email_recever = '<the email address that will receive the notification>'`
+
+You will aslo need to set up the email_sender account variables in the main.py file. You can check this tutorial if you need help setting up the gmail account:
+https://youtu.be/g_j6ILT-X0k
 
 Usage
 -----
@@ -27,7 +28,19 @@ To run the script, use the following command:
 
 Copy code
 
-`python script.py`
+`git clone https://github.com/fxgt/UqamGradeChecker.git`
+
+Copy code
+
+`cd UqamGradeChecker`
+
+Copy code
+
+`chmod +x main.py`
+
+Copy code
+
+`python3 main.py`
 
 Automation
 ----------
@@ -47,6 +60,6 @@ Copy code
 
 Copy code
 
-`0 0 * * * /path/to/bash/script.sh`
+`* * * * * /path/to/UqamGradeChecker/main.py`
 
-1.  Save the crontab file and exit. The script will now be automated and run daily at 12:00am
+1.  Save the crontab file and exit. The script will now be automated and run every minutes.

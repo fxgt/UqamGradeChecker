@@ -60,6 +60,6 @@ Copy code
 
 Copy code
 
-`* * * * * /path/to/UqamGradeChecker/main.py`
+`* * * * * /path/to/python3 /path/to/UqamGradeChecker/main.py`
 
 2.  Save the crontab file and exit. The script will now be automated and run every minutes.

@@ -6,13 +6,11 @@ import creds
 import json
 import ssl
 from email.message import EmailMessage
+from twilio.rest import Client
 
 # Email that sends notification (https://youtu.be/g_j6ILT-X0k check this video for complete tutorial)
 email_sender = '<the gmail address that sends the notification>'
 email_sender_pass = '<password of that gmail>'
-
-# Email that receive the notification
-email_receiver = creds.email_recever
 
 # URL of request
 request_url1 = 'https://portailetudiant.uqam.ca/authentification'
@@ -27,13 +25,13 @@ payload = {
 # Email settings
 to_email = creds.email_recever
 email_subject = 'Tu as reçu une nouvelle note !'
-email_body = 'Cliques sur ce lien pour la découvrir: https://portailetudiant.uqam.ca/'
+email_body = 'Clique sur ce lien pour la découvrir: https://portailetudiant.uqam.ca/'
 
 # Send an email Function
 def send_email():
     em= EmailMessage()
     em['From'] = email_sender
-    em['To'] = email_receiver
+    em['To'] = creds.email_recever
     em['Subject'] = email_subject
     em.set_content(email_body)
 
@@ -42,6 +40,16 @@ def send_email():
     with smtplib.SMTP_SSL('smtp.gmail.com', 465, context=context ) as smtp:
         smtp.login(email_sender, email_sender_pass)
         smtp.sendmail(email_sender, email_receiver, em.as_string())
+
+#sends sms using twilio 
+def send_sms():   
+    message = client.messages.create(
+        body="\n\nTu as reçu une nouvelle note !"+
+        '\n\nClique sur ce lien pour la découvrir: https://portailetudiant.uqam.ca/' ,
+        from_=creds.sms_sender_number,
+        to=creds.sms_receiver
+)
+    print(message.sid)	
 
 #Function that check if you've received a new grade
 def checkChanges(data):

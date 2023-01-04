@@ -3,7 +3,7 @@ This script checks for updates to grades on the UQAM student portal (<https://po
 
 Requirements
 ------------
-
+-   Twilio (with a Twilio account)
 -   Python 3.6 or higher
 -   requests library (pip install requests)
 -   smtplib library (included in Python standard library)

@@ -14,12 +14,22 @@ Setup
 
 To use this script, you will need to change the variables in the file named `creds.py` in the same directory as the script. The file contains the following variables:
 
-`identifiant = '<your UQAM student ID>'` 
-`motDePasse = '<your UQAM password>'`
-`email_recever = '<the email address that will receive the notification>'`
+`# Change these variables values with your informations
+identifiant = '<Add your code permanent>'
+motDePasse = '<Add your nip>'
+email_recever = '<Add your email that will receive the notification>'
 
-You will aslo need to set up the email_sender account variables in the main.py file. You can check this tutorial if you need help setting up the gmail account:
+#Create Twilio account to fill the next variables
+sms_sender_number ='<your Twilio number>'
+account_sid = '<Your Twilio account sid>'
+auth_token = '<Your Twilio authentification Token>'`
+
+You will need to set up the email_sender account variables in the main.py file. You can check this tutorial if you need help setting up the gmail account:
 https://youtu.be/g_j6ILT-X0k
+
+You will also need to set up a Twilio account to fill some variables. You can check this tutorial if you need help setting up the Twilio account:
+https://youtu.be/ywH2rsL371Q
+
 
 Usage
 -----

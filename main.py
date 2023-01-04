@@ -55,51 +55,52 @@ def send_sms():
 def checkChanges(data):
     # Load the saved data file
     with open('notes.json', "r", encoding='utf-8') as f:
-        saved_data = f.read()        
-    saved_data=json.loads(saved_data)
-    if(data!=saved_data):  
+        saved_data_str = f.read()  # read the contents of the file as a string
+        saved_data = json.loads(saved_data_str)  # parse the string as JSON
+	
+    if data != saved_data:  
         seen_notes = set()
         seen_compteurEvaluation = set()
-    # Iterate through the "resultats" array
-        for i, result in enumerate(saved_data['data']['resultats']):
+        # Iterate through the "resultats" array
+        for i, result in enumerate(saved_data['resultats']):  # access saved_data as a dictionary, not a string
             # Check if the trimestre is 20223 or higher
             if result['trimestre'] >= 20223:
                 # Iterate through the "programmes" array
                 for j, prog in enumerate(result['programmes']):
                     # Iterate through the "activites" array
                     for k, act in enumerate(prog['activites']):
-			#Check if note and compteurEvaluation values are the same
-                        if act['compteurEvaluation'] == data['data']['resultats'][i]['programmes'][j]['activites'][k]['compteurEvaluation'] and act['note'] == data['data']['resultats'][i]['programmes'][j]['activites'][k]['note']:
+                        #Check if note and compteurEvaluation values are the same
+                        if act['compteurEvaluation'] == data['resultats'][i]['programmes'][j]['activites'][k]['compteurEvaluation'] and act['note'] == data['resultats'][i]['programmes'][j]['activites'][k]['note']:
                             seen_notes.add(act['note'])
                             seen_compteurEvaluation.add(act['compteurEvaluation']) 
                         # Check for changes in the "compteurEvaluation" key
-                        if act['compteurEvaluation'] != data['data']['resultats'][i]['programmes'][j]['activites'][k]['compteurEvaluation']:
+                        if act['compteurEvaluation'] != data['resultats'][i]['programmes'][j]['activites'][k]['compteurEvaluation']:
                             send_email()
+                            send_sms()
                             # Convert the data to a string
-                            json_str = json.dumps(data)
                             # Save the data to the file notes.json
                             with open('notes.json', 'w', encoding='utf-8') as f:
-                                json.dump(json_str, f, ensure_ascii=False, indent=2)
+                                json.dump(data, f, ensure_ascii=False, indent=2)
                             sys.exit()  
 
                         # Check for changes in the "note" key
-                        if act['note'] != data['data']['resultats'][i]['programmes'][j]['activites'][k]['note']:
+                        if act['note'] != data['resultats'][i]['programmes'][j]['activites'][k]['note']:
                             send_email()
+                            send_sms()
                             # Convert the data to a string
-                            json_str = json.dumps(data)
                             # Save the data to the file notes.json
                             with open('notes.json', 'w', encoding='utf-8') as f:
-                                json.dump(json_str, f, ensure_ascii=False, indent=2)
+                                json.dump(data, f, ensure_ascii=False, indent=2)
                             sys.exit()  
 
                     #check for extra note or compteurEvaluation keys in data JSON
                     if act['note'] not in seen_notes or act['compteurEvaluation'] not in seen_compteurEvaluation:  
-                        # Convert the data to a string
-                        json_str = json.dumps(data)
+                        send_email()
+                        send_sms()
                         # Save the data to the file notes.json
                         with open('notes.json', 'w', encoding='utf-8') as f:
-                            json.dump(json_str, f, ensure_ascii=False, indent=2)
-                        sys.exit()       
+                            json.dump(data, f, ensure_ascii=False, indent=2)
+                        sys.exit()      
 
     
 # Check if the script has been run before
@@ -157,13 +158,8 @@ if not os.path.exists("notes.json"):
     # Convert the response to a JSON object
     data = json.loads(response.text)
 
-    # Convert the data to a string
-    json_str = json.dumps(data)
-
-    # Open the new file and write the string into it
     with open('notes.json', 'w', encoding='utf-8') as f:
-        f.write(json_str)
-
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 # Compare the current webpage with the saved version
 else:
